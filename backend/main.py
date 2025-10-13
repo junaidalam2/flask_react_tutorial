@@ -10,7 +10,7 @@ def get_contacts():
     return jsonify({"contacts": json_contacts}) #convert list to json data
 
 
-@app.route("/create_contacts", method=["POST"])
+@app.route("/create_contact", methods=["POST"])
 def create_contact():
     first_name = request.json.get("firstName")
     last_name = request.json.get("lastName")
@@ -18,7 +18,7 @@ def create_contact():
 
     if not first_name or not last_name or not email:
         return (
-            jsonify({"message: You must include a first name, last name and email"}), 
+            jsonify({"message": "You must include a first name, last name and email"}), 
             400,
         )
     
@@ -32,7 +32,7 @@ def create_contact():
     return jsonify({"message": "User created!"}), 201
 
 
-@app.route("update_contact/<int:user_id>", methods=["PATCH"])
+@app.route("/update_contact/<int:user_id>", methods=["PATCH"])
 def update_contact(user_id):
     contact = Contact.query.get(user_id)
     
@@ -49,7 +49,7 @@ def update_contact(user_id):
     return jsonify({"message": "Contact updated"}), 200
 
 
-@app.route("/delete_contact/<int:user_id>", methodfs=["DELETE"])
+@app.route("/delete_contact/<int:user_id>", methods=["DELETE"])
 def delete_contact(user_id):
     contact = Contact.query.get(user_id)
     
